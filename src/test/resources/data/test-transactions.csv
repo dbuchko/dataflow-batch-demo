@@ -1,0 +1,6 @@
+accountId,transactionType,amount,description,transactionDate,referenceNumber,counterpartyAccountId,balanceAfter
+ACC001,DEPOSIT,1000.00,Test deposit,2024-03-01,TEST-REF-0001,,5000.00
+ACC001,WITHDRAWAL,200.00,Test withdrawal,2024-03-02,TEST-REF-0002,,4800.00
+ACC001,CHECK,150.00,Test check payment,2024-03-03,TEST-REF-0003,,4650.00
+ACC001,TRANSFER,300.00,Test transfer,2024-03-04,TEST-REF-0004,ACC002,4350.00
+ACC002,DEPOSIT,500.00,Test incoming transfer,2024-03-04,TEST-REF-0005,ACC001,1500.00

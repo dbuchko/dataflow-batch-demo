@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "app.batch.default-input-file",
+      "type": "java.lang.String",
+      "description": "Default CSV file to ingest when no inputFile job parameter is provided."
+    },
+    {
+      "name": "app.batch.archive-dir",
+      "type": "java.lang.String",
+      "description": "Directory to move processed CSV files into after a successful job run. Leave blank to disable archiving."
+    }
+  ]
+}

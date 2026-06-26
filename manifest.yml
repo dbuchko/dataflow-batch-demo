@@ -1,0 +1,14 @@
+applications:
+  - name: dfbatch
+    memory: 1G
+    disk_quota: 1G
+    instances: 0
+    no-route: true
+    health-check-type: process
+    buildpacks:
+      - java_buildpack_offline
+    path: target/dfbatch-0.0.1-SNAPSHOT.jar
+    env:
+      SPRING_PROFILES_ACTIVE: cloud
+    services:
+      - mysql-db

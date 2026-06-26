@@ -4,6 +4,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Commands
 
+SDKMAN manages the JVM — run `sdk env` once after cloning, or enable `sdkman_auto_env=true` for automatic switching.
+
 ```bash
 # Build
 ./mvnw clean package
@@ -24,6 +26,27 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 # Build fat JAR for CF deployment
 ./mvnw clean package -DskipTests
 ```
+
+## Spring Batch 6 Package Changes
+
+Spring Batch 6 (bundled in Spring Boot 4.x) reorganized packages significantly — the old paths will not compile:
+
+| Old (Spring Batch 5) | New (Spring Batch 6) |
+|---|---|
+| `org.springframework.batch.core.Job` | `org.springframework.batch.core.job.Job` |
+| `org.springframework.batch.core.Step` | `org.springframework.batch.core.step.Step` |
+| `org.springframework.batch.core.JobExecution` | `org.springframework.batch.core.job.JobExecution` |
+| `org.springframework.batch.core.JobParameters` | `org.springframework.batch.core.job.parameters.JobParameters` |
+| `org.springframework.batch.core.JobParametersBuilder` | `org.springframework.batch.core.job.parameters.JobParametersBuilder` |
+| `org.springframework.batch.item.*` | `org.springframework.batch.infrastructure.item.*` |
+| `org.springframework.batch.item.file.*` | `org.springframework.batch.infrastructure.item.file.*` |
+| `org.springframework.batch.item.database.*` | `org.springframework.batch.infrastructure.item.database.*` |
+
+The chunk step builder also changed — use `chunk(int)` + `.transactionManager(tm)` instead of the deprecated `chunk(int, tm)`.
+
+In tests, `JobLauncherTestUtils` + `launchJob()` is replaced by `JobOperatorTestUtils` + `startJob()`. `@SpringBatchTest` auto-wires `JobOperatorTestUtils`.
+
+Java version: this project requires Java 21 and uses SDKMAN for JVM management. The correct version is pinned in [`.sdkmanrc`](.sdkmanrc). Run `sdk env` in the project root to activate it, or enable auto-switching in `~/.sdkman/etc/config` (`sdkman_auto_env=true`). Do not prepend `JAVA_HOME=...` to commands — let SDKMAN manage it.
 
 ## Architecture
 
